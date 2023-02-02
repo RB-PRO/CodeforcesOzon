@@ -7,15 +7,14 @@ import (
 	"strconv"
 )
 
-func main() {
-	inputBuf := bufio.NewReader(os.Stdin)
-	outputBuf := bufio.NewWriter(os.Stdout)
-
-	fmt.Fprintln(outputBuf, Work(inputBuf))
-
-	outputBuf.Flush()
+func main() { // Главная функция
+	inputBuf := bufio.NewReader(os.Stdin)   // Считывание
+	outputBuf := bufio.NewWriter(os.Stdout) // Вывод
+	fmt.Fprintln(outputBuf, Work(inputBuf)) // Записываем в вывод
+	outputBuf.Flush()                       // Опустошаем вывод
 }
 
+// Решение
 func Work(in *bufio.Reader) (outputStr string) {
 	var testCount int
 
@@ -26,7 +25,6 @@ func Work(in *bufio.Reader) (outputStr string) {
 		fmt.Fscan(in, &n, &m)
 
 		outputStr += strconv.Itoa(n+m) + "\n"
-
 	}
 
 	return outputStr
