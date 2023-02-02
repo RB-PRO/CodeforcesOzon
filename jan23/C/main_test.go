@@ -42,3 +42,23 @@ func TestMain(t *testing.T) {
 		t.Fatal("\nOUTPUT:\n", fmt.Sprint(outPutWork)+"\n")
 	}
 }
+
+func TestMinResp(t *testing.T) {
+	inputMap := map[int]int{0: 2, 1: 1, 2: 3, 3: 1, 4: 1, 5: 4}
+	answer := 2
+	if MinResp(inputMap) != answer {
+		t.Fatal(inputMap, MinResp(inputMap))
+	}
+
+	inputMap = map[int]int{2: 3, 3: 1, 4: 1, 5: 4}
+	answer = 6
+	if MinResp(inputMap) != answer {
+		t.Fatal(inputMap, MinResp(inputMap))
+	}
+
+	inputMap = map[int]int{3: 1, 4: 1}
+	answer = 5
+	if MinResp(inputMap) != answer {
+		t.Fatal(inputMap, MinResp(inputMap))
+	}
+}
