@@ -44,7 +44,7 @@ func FindCoast(devs map[int]int) string {
 		if len(devs) < 2 {
 			break
 		}
-		nextMinIndexKey := MinResp(devs)
+		nextMinIndexKey := MinResp(&devs)
 		OutPutStr += fmt.Sprintf("%d %d\n", key, nextMinIndexKey)
 
 		delete(devs, nextMinIndexKey)
@@ -56,9 +56,9 @@ func FindCoast(devs map[int]int) string {
 
 // Получить номер элемента массива, который можем считать минимальным и стоит после текущего разраба(т.е со второго разраба)
 // Возвращает положение напарника
-func MinResp(devs map[int]int) int {
+func MinResp(devs *map[int]int) int {
 	var startInt, min, counter, indexKey int = 0, 0, 0, 0
-	for key, val := range devs {
+	for key, val := range *devs {
 		if counter == 0 {
 			startInt = val
 		} else if counter == 1 {
