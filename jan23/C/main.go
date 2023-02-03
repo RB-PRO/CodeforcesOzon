@@ -23,9 +23,9 @@ func Work(in *bufio.Reader) (outputStr string) {
 		var n, dataInt int
 		fmt.Fscan(in, &n)         // количество разработчиков
 		devs := make(map[int]int) // Данные будем держать в мапе
-		for i := 0; i < n; i++ {
+		for j := 1; j < n; j++ {
 			fmt.Fscan(in, &dataInt) // Прочитать мастерство разработчика
-			devs[i] = dataInt
+			devs[j] = dataInt
 		}
 
 		// Сохранение результата
@@ -36,24 +36,47 @@ func Work(in *bufio.Reader) (outputStr string) {
 }
 
 // Поиск пар-ключей
-func FindCoast(devs map[int]int) string {
+func FindCoast(devs map[int]int) (OutPutStr string) {
+	//fmt.Println(devs)
 
-	return ""
+	for key := range devs {
+		if len(devs) < 2 {
+			break
+		}
+		nextMinIndexKey := MinResp(devs)
+		OutPutStr += fmt.Sprintf("%d %d\n", key, nextMinIndexKey)
+
+		fmt.Println(key, nextMinIndexKey, devs)
+
+		delete(devs, nextMinIndexKey)
+		delete(devs, key)
+
+	}
+	return OutPutStr
 }
 
 // Получить номер элемента массива, который можем считать минимальным и стоит после текущего разраба(т.е со второго разраба)
 // Возвращает положение напарника
-func MinResp(devs map[int]int /**/) (index int) {
-	startInt := devs[0]
-	var min int = devs[0]
-	//for i := 1; i < len(devs); i++ {
+func MinResp(devs map[int]int) (indexKey int) {
+	fmt.Println(devs)
+	var startInt, min, counter int
 	for key, val := range devs {
-		if abs(startInt-val) < min {
-			min = abs(startInt - val)
-			index = key
+		if counter == 0 {
+			startInt = val
+		} else if counter == 1 {
+			indexKey = key
+			min = val
+		} else {
+			if abs(startInt-val) < min {
+				min = abs(startInt - val)
+				indexKey = key
+			}
 		}
+		//fmt.Printf("counter %#v. index %#v. min %#v. startInt %#v. key %#v. abs(startInt-val) %#v.\n", counter, index, min, startInt, key, abs(startInt-val))
+		counter++
 	}
-	return index + 1
+	//fmt.Println()
+	return indexKey
 }
 
 // Модуль числа

@@ -39,26 +39,22 @@ func TestMain(t *testing.T) {
 
 	// Проверка на ошибку
 	if outPutWork != answer {
-		t.Fatal("\nOUTPUT:\n", fmt.Sprint(outPutWork)+"\n")
+		t.Fatal("\nOUTPUT:\n" + fmt.Sprint(outPutWork) + "\nTrue:\n" + answer)
 	}
 }
 
 func TestMinResp(t *testing.T) {
-	inputMap := map[int]int{0: 2, 1: 1, 2: 3, 3: 1, 4: 1, 5: 4}
-	answer := 2
-	if MinResp(inputMap) != answer {
-		t.Fatal(inputMap, MinResp(inputMap))
+	inputMap := []map[int]int{
+		map[int]int{1: 2, 2: 1, 3: 3, 4: 1, 5: 1, 6: 4},
+		map[int]int{3: 3, 4: 1, 5: 1, 6: 4},
+		map[int]int{4: 1, 5: 1},
 	}
+	answer := []int{2, 6, 5}
 
-	inputMap = map[int]int{2: 3, 3: 1, 4: 1, 5: 4}
-	answer = 6
-	if MinResp(inputMap) != answer {
-		t.Fatal(inputMap, MinResp(inputMap))
-	}
-
-	inputMap = map[int]int{3: 1, 4: 1}
-	answer = 5
-	if MinResp(inputMap) != answer {
-		t.Fatal(inputMap, MinResp(inputMap))
+	for index, mapas := range inputMap {
+		responseFunc := MinResp(mapas)
+		if responseFunc != answer[index] {
+			t.Fatal(mapas, "Ответ", responseFunc, "True", answer[index])
+		}
 	}
 }
