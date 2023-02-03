@@ -44,14 +44,15 @@ func TestMain(t *testing.T) {
 }
 
 func TestMinResp(t *testing.T) {
-	inputMap := []map[int]int{
-		map[int]int{1: 2, 2: 1, 3: 3, 4: 1, 5: 1, 6: 4},
-		map[int]int{3: 3, 4: 1, 5: 1, 6: 4},
-		map[int]int{4: 1, 5: 1},
-	}
-	answer := []int{2, 6, 5}
+	var inputMapTestMinResp [3]map[int]int
+	inputMapTestMinResp[0] = map[int]int{1: 2, 2: 1, 3: 3, 4: 1, 5: 1, 6: 4}
+	inputMapTestMinResp[1] = map[int]int{3: 3, 4: 1, 5: 1, 6: 4}
+	inputMapTestMinResp[2] = map[int]int{4: 1, 5: 1}
 
-	for index, mapas := range inputMap {
+	answer := [3]int{2, 6, 5}
+
+	for index, mapas := range inputMapTestMinResp {
+		fmt.Println("mapas", mapas)
 		responseFunc := MinResp(mapas)
 		if responseFunc != answer[index] {
 			t.Fatal(mapas, "Ответ", responseFunc, "True", answer[index])
