@@ -52,7 +52,6 @@ func TestMinResp(t *testing.T) {
 	answer := [3]int{2, 6, 5}
 
 	for index, mapas := range inputMapTestMinResp {
-		fmt.Println("mapas", mapas)
 		responseFunc := MinResp(mapas)
 		if responseFunc != answer[index] {
 			t.Fatal(mapas, "Ответ", responseFunc, "True", answer[index])

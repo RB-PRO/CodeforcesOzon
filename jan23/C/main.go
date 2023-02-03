@@ -22,9 +22,8 @@ func Work(in *bufio.Reader) string {
 
 	for i := 0; i < testCount; i++ {
 		var n, dataInt int
-		fmt.Fscan(in, &n) // количество разработчиков
-		//var devs map[int]int // Данные будем держать в мапе
-		devs := make(map[int]int)
+		fmt.Fscan(in, &n)         // количество разработчиков
+		devs := make(map[int]int) // Данные будем держать в мапе
 		for j := 1; j < n; j++ {
 			fmt.Fscan(in, &dataInt) // Прочитать мастерство разработчика
 			devs[j] = dataInt
@@ -41,8 +40,6 @@ func Work(in *bufio.Reader) string {
 func FindCoast(devs map[int]int) string {
 	var OutPutStr string
 
-	fmt.Println("devs", devs)
-
 	for key := range devs {
 		if len(devs) < 2 {
 			break
@@ -50,12 +47,8 @@ func FindCoast(devs map[int]int) string {
 		nextMinIndexKey := MinResp(devs)
 		OutPutStr += fmt.Sprintf("%d %d\n", key, nextMinIndexKey)
 
-		fmt.Print(key, nextMinIndexKey, " ", devs)
-
 		delete(devs, nextMinIndexKey)
-		fmt.Print(" ", devs)
 		delete(devs, key)
-		fmt.Println(" ", devs)
 
 	}
 	return OutPutStr
