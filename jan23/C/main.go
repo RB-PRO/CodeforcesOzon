@@ -22,11 +22,13 @@ func Work(in *bufio.Reader) string {
 
 	for i := 0; i < testCount; i++ {
 		var n, dataInt int
-		fmt.Fscan(in, &n)         // количество разработчиков
-		devs := make(map[int]int) // Данные будем держать в мапе
-		for j := 1; j < n; j++ {
+		fmt.Fscan(in, &n) // количество разработчиков
+		//devs := make(map[int]int) // Данные будем держать в мапе
+		devs := make([]Dev, n)
+		for j := 0; j < n; j++ {
 			fmt.Fscan(in, &dataInt) // Прочитать мастерство разработчика
-			devs[j] = dataInt
+			devs[j].number = j + 1
+			devs[j].rep = dataInt
 		}
 
 		// Сохранение результата
@@ -37,18 +39,21 @@ func Work(in *bufio.Reader) string {
 }
 
 // Поиск пар-ключей
-func FindCoast(devs map[int]int) string {
+func FindCoast(devs []Dev) string {
 	var OutPutStr string
 
-	for key := range devs {
+	//for indexDev := range devs {
+	for indexDev := 0; indexDev < len(devs)/2; indexDev++ {
+		fmt.Println(indexDev, len(devs)/2)
 		if len(devs) < 2 {
 			break
 		}
-		nextMinIndexKey := MinResp(&devs)
-		OutPutStr += fmt.Sprintf("%d %d\n", key, nextMinIndexKey)
+		nextMinIndexKey := MinResp(devs)
+		OutPutStr += fmt.Sprintf("%d %d\n", indexDev, nextMinIndexKey)
 
-		delete(devs, nextMinIndexKey)
-		delete(devs, key)
+		fmt.Println(devs, "nextMinIndexKey", nextMinIndexKey-1)
+		devs = removeDev(devs, nextMinIndexKey-1)
+		devs = removeDev(devs, 0)
 
 	}
 	return OutPutStr
@@ -56,18 +61,18 @@ func FindCoast(devs map[int]int) string {
 
 // Получить номер элемента массива, который можем считать минимальным и стоит после текущего разраба(т.е со второго разраба)
 // Возвращает положение напарника
-func MinResp(devs *map[int]int) int {
+func MinResp(devs []Dev) int {
 	var startInt, min, counter, indexKey int = 0, 0, 0, 0
-	for key, val := range *devs {
+	for _, val := range devs {
 		if counter == 0 {
-			startInt = val
+			startInt = val.rep
 		} else if counter == 1 {
-			indexKey = key
-			min = abs(startInt - val)
+			indexKey = val.number
+			min = abs(startInt - val.rep)
 		} else {
-			if abs(startInt-val) < min {
-				min = abs(startInt - val)
-				indexKey = key
+			if abs(startInt-val.rep) < min {
+				min = abs(startInt - val.rep)
+				indexKey = val.number
 			}
 		}
 		//fmt.Printf("counter %#v. indexKey %#v. min %#v. startInt %#v. key %#v. val %#v. abs(startInt-val) %#v-%#v. abs %#v\n", counter, indexKey, min, startInt, key, val, startInt, val, abs(startInt-val))
@@ -83,4 +88,12 @@ func abs(inputInt int) int {
 	} else {
 		return inputInt
 	}
+}
+func removeDev(slice []Dev, s int) []Dev {
+	return append(slice[:s], slice[s+1:]...)
+}
+
+type Dev struct {
+	number int // Порядковый номер сотрудника
+	rep    int // Репутация сотрудника
 }
