@@ -10,56 +10,55 @@ import (
 // Тест №1
 func TestMain(t *testing.T) {
 	// Ввод
-	question := `2
-21
-[
-	{
-		"id":0,
-		"name":"all"
-	},
-	{
-		"id":1,
-		"name":"clothes",
-		"parent":0
-	},
-	{
-		"id":2,
-		"name":"shoes",
-		"parent":0
-	},
-	{
-		"id":55,
-		"name":"sneakers",
-		"parent":2
-	}
-]
-6
-	[ {"parent":	0,"id":100,  "name":
-	"x"},{
+	question := `3
+2 6 18
+..................
+..................
+.../\.............
+../XX\/\../\......
+./XXXXXX\/XX\.....
+/XXXXXXXXXXXX\....
 
-"name":"x","id":0}
+........../\......
+........./XX\.....
+......../XXXX\....
+.../\../XXXXXX\...
+../XX\/XXXXXXXX\..
+./XXXXXXXXXXXXXX\.
+1 2 2
+..
+/\
+3 4 5
+.....
+.....
+.....
+./\..
 
-]
+.....
+.....
+./\..
+/XX\.
+
+.....
+.....
+../\.
+./XX\
 `
 	// Ожидаемый вывод
-	answer := `[{
-	"id": 0,
-	"name": "all",
-	"next": [{
-		"id": 1,
-		"name": "clothes",
-		"next": []
-	}, {
-		"id": 2,
-		"name": "shoes",
-		"next": [{
-			"id": 55,
-			"name": "sneakers"
-		}]
-	}]
-},
-{"name":"x","id":0,"next":[{"id":100,"name":"x"}]}
-]
+	answer := `........../\......
+........./XX\.....
+.../\.../XXXX\....
+../XX\/\XX/\XX\...
+./XXXXXX\/XX\XX\..
+/XXXXXXXXXXXX\XX\.
+
+..
+/\
+
+.....
+.....
+./\\.
+//\\\
 `
 
 	// Записываем в канал Stdin информацию входную

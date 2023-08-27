@@ -10,57 +10,14 @@ import (
 // Тест №1
 func TestMain(t *testing.T) {
 	// Ввод
-	question := `2
-21
-[
-	{
-		"id":0,
-		"name":"all"
-	},
-	{
-		"id":1,
-		"name":"clothes",
-		"parent":0
-	},
-	{
-		"id":2,
-		"name":"shoes",
-		"parent":0
-	},
-	{
-		"id":55,
-		"name":"sneakers",
-		"parent":2
-	}
-]
-6
-	[ {"parent":	0,"id":100,  "name":
-	"x"},{
-
-"name":"x","id":0}
-
-]
+	question := `somesuperlongstring
+3
+1 2 la
+4 4 d
+10 13 tiny
 `
 	// Ожидаемый вывод
-	answer := `[{
-	"id": 0,
-	"name": "all",
-	"next": [{
-		"id": 1,
-		"name": "clothes",
-		"next": []
-	}, {
-		"id": 2,
-		"name": "shoes",
-		"next": [{
-			"id": 55,
-			"name": "sneakers"
-		}]
-	}]
-},
-{"name":"x","id":0,"next":[{"id":100,"name":"x"}]}
-]
-`
+	answer := `lamdsupertinystring`
 
 	// Записываем в канал Stdin информацию входную
 	inputBuf := bufio.NewReader(strings.NewReader(question))
